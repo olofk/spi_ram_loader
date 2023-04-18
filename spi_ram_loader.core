@@ -1,0 +1,63 @@
+CAPI=2:
+
+name : ::spi_ram_loader:0
+
+filesets :
+  rtl : {files : [spi_ram_loader.v : {file_type : verilogSource}]}
+
+  soc :
+    files:
+      - subservient_with_spi_ram_loader.v
+      - subservient_with_spi_ram_loader_and_ram.v
+      - subservient_generic_ram.v
+    file_type : verilogSource
+    depend : [subservient]
+
+  tb  :
+    files: [test_spi_ram_loader.py : {file_type : user, copyto : .}]
+    depend : [vlog_tb_utils]
+
+  soc_tb:
+    files:
+      - test_soc.py : {file_type : user, copyto : .}
+      - hello.bin : {file_type : user, copyto : .}
+    depend : [vlog_tb_utils]
+
+targets:
+  default:
+    filesets : [rtl]
+
+  lint:
+    filesets : [rtl]
+    flow: lint
+    flow_options:
+      tool : verilator
+    parameters : [AW=8]
+    toplevel : spi_ram_loader
+
+  sim:
+    filesets: [rtl, tb]
+    flow : sim
+    flow_options:
+      timescale : 1ns/1ns
+      tool: icarus
+      vvp_options : [-M, "`cocotb-config --lib-dir`", "-m", libcocotbvpi_icarus]
+    parameters : [AW=8]
+    toplevel : [spi_ram_loader, vlog_tb_utils]
+
+  socsim:
+    filesets: [rtl, soc, soc_tb]
+    flow : sim
+    flow_options:
+      timescale : 1ns/1ns
+      tool: icarus
+      vvp_options : [-M, "`cocotb-config --lib-dir`", "-m", libcocotbvpi_icarus]
+    parameters : [AW=8]
+    toplevel : [subservient_with_spi_ram_loader_and_ram, vlog_tb_utils]
+    
+
+parameters:
+  AW:
+    datatype : int
+    description : Width (in bits) of address bus
+    paramtype : vlogparam
