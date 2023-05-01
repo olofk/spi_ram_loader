@@ -17,3 +17,8 @@
     # Run SoC cocotb simulation
     MODULE=test_soc fusesoc run --target=socsim spi_ram_loader
 
+## Example
+
+subservient_with_spi_ram_loader_and_ram contains a basic example on how to use spi_ram_loader together with a SoC to preload an application into a memory before running it. When cs_n is pulled low, the system enters debug mode where the SoC is held in reset. Each byte written over SPI will be written sequentially to the SRAM. When cs_n is released, the system will leave reset and start executing the code from memory.
+
+![example](subservient_with_spi_ram_loader.png)
