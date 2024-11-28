@@ -1,5 +1,6 @@
+`default_nettype none
 module subservient_with_spi_ram_loader
-  #(parameter aw = 0)
+  #(parameter aw = 9)
   (
    input wire		i_clk,
 
@@ -44,17 +45,7 @@ module subservient_with_spi_ram_loader
       .o_sram_wen   (core_sram_wen),
       .o_sram_raddr (o_sram_raddr),
       .i_sram_rdata (i_sram_rdata),
-      .o_sram_ren   (i_sram_ren),
-
-      //Debug interface
-      .i_debug_mode (1'b0),
-      .i_wb_dbg_adr (32'd0),
-      .i_wb_dbg_dat (32'd0),
-      .i_wb_dbg_sel (4'd0),
-      .i_wb_dbg_we  (1'b0),
-      .i_wb_dbg_stb (1'b0),
-      .o_wb_dbg_rdt (),
-      .o_wb_dbg_ack (),
+      .o_sram_ren   (o_sram_ren),
 
       // External I/O
       .o_gpio (o_gpio));
@@ -70,3 +61,4 @@ module subservient_with_spi_ram_loader
       .o_sram_wen   (dbg_sram_wen  ));
       
 endmodule
+`default_nettype wire
