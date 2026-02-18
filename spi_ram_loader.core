@@ -1,6 +1,6 @@
 CAPI=2:
 
-name : ::spi_ram_loader:0
+name : award-winning:utils:spi_ram_loader:0.0.1
 description : SPI device for loading data to RAM
 
 filesets :
@@ -10,7 +10,7 @@ filesets :
     files:
       - sky130.tcl : {file_type : tclSource}
       - subservient_with_spi_ram_loader.v : {file_type : verilogSource}
-    depend : [subservient]
+    depend : [award-winning:soc:subservient]
 
   soc :
     files:
@@ -18,19 +18,19 @@ filesets :
       - subservient_with_spi_ram_loader_and_ram.v
       - subservient_generic_ram.v
     file_type : verilogSource
-    depend : [subservient]
+    depend : [award-winning:soc:subservient]
 
   tb  :
     files:
       - test_spi_ram_loader.py : {file_type : user, copyto : .}
       - spi_ram_loader_wrapper.v : {file_type : verilogSource}
-    depend : [vlog_tb_utils]
+    depend : [fusesoc:utils:vlog_tb_utils]
 
   soc_tb:
     files:
       - test_soc.py : {file_type : user, copyto : .}
       - hello.bin : {file_type : user, copyto : .}
-    depend : [vlog_tb_utils]
+    depend : [fusesoc:utils:vlog_tb_utils]
 
 targets:
   default:
