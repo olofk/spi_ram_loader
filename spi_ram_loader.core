@@ -1,6 +1,7 @@
 CAPI=2:
 
 name : ::spi_ram_loader:0
+description : SPI device for loading data to RAM
 
 filesets :
   rtl : {files : [spi_ram_loader.v : {file_type : verilogSource}]}
@@ -34,11 +35,13 @@ targets:
     filesets : [rtl]
 
   sky130:
+    description: Create macro for Sky130 with OpenLANE
     default_tool: openlane
     filesets : [rtl, sky130]
     toplevel : subservient_with_spi_ram_loader
 
   lint:
+    description: Run static code checks (linting)
     filesets : [rtl]
     flow: lint
     flow_options:
@@ -47,6 +50,7 @@ targets:
     toplevel : spi_ram_loader
 
   sim:
+    description: Stand-alone simulation of SPI RAM loader core
     filesets: [rtl, tb]
     flow : sim
     flow_options:
@@ -57,6 +61,7 @@ targets:
     toplevel : [spi_ram_loader, vlog_tb_utils]
 
   socsim:
+    description: Simulation of SPI RAM loader core in a SoC environment
     filesets: [rtl, soc, soc_tb]
     flow : sim
     flow_options:
