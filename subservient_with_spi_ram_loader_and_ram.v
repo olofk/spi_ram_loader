@@ -21,7 +21,9 @@ module subservient_with_spi_ram_loader_and_ram
 
    reg			rst = 1'b1;
    initial #10 rst = 1'b0;
-   
+
+   vlog_tb_utils vtu();
+
    subservient_generic_ram
      #(.depth (memsize))
    memory
