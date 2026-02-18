@@ -21,7 +21,9 @@ filesets :
     depend : [subservient]
 
   tb  :
-    files: [test_spi_ram_loader.py : {file_type : user, copyto : .}]
+    files:
+      - test_spi_ram_loader.py : {file_type : user, copyto : .}
+      - spi_ram_loader_wrapper.v : {file_type : verilogSource}
     depend : [vlog_tb_utils]
 
   soc_tb:
@@ -58,7 +60,7 @@ targets:
       timescale : 1ns/1ns
       tool: icarus
     parameters : [AW=8]
-    toplevel : [spi_ram_loader, vlog_tb_utils]
+    toplevel : spi_ram_loader_wrapper
 
   socsim:
     description: Simulation of SPI RAM loader core in a SoC environment
