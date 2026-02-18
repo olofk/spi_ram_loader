@@ -1,6 +1,6 @@
 CAPI=2:
 
-name : award-winning:utils:spi_ram_loader:0.0.1
+name : award-winning:utils:spi_ram_loader:0.0.2
 description : SPI device for loading data to RAM
 
 filesets :
